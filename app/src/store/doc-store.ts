@@ -27,7 +27,7 @@ const useDoc = create<IDocStore>((set, get) => ({
   connect: (session = null) => {
     const username = sessionStorage.getItem('username') || crypto.randomUUID();
     const docId = session || crypto.randomUUID();
-    const socket = new WebSocket(`wss://uml-collab-server.zeabur.app//doc/?username=${username}&doc=${docId}`);
+    const socket = new WebSocket(`wss://uml-collab-server.zeabur.app/doc/?username=${username}&doc=${docId}`);
 
     socket.addEventListener('error', () => console.error('hubo un erro con el websocket'))
     socket.addEventListener("message", (event) => {
