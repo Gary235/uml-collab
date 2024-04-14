@@ -12,6 +12,6 @@ const colors: string[] = [
 ]
 
 
-export default function () {
-  return colors[Math.floor(Math.random() * 10)]
+export default function (index: number) {
+  return colors[index % colors.length]
 }

@@ -1,4 +1,4 @@
-import { useRef, useState, type FC } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 
 import useDoc from "../store/doc-store";
 import classnames from "../utils/classnames";
@@ -8,15 +8,34 @@ import SlideUpButton from "./buttons/SlideUpButton";
 
 
 const Doc: FC = () => {
-  const [opened, setOpened] = useState(true)
+  const [opened, _setOpened] = useState(true)
+  const openedRef = useRef(opened)
   const docRef = useRef<HTMLDivElement | null>(null)
+
+  const setOpened = (newVal: boolean) => {
+    _setOpened(newVal);
+    openedRef.current = newVal;
+  }
 
   const {docValue, setDocValue, send} =
     useDoc(({docValue, setDocValue, send}) => ({docValue, setDocValue, send}));
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && openedRef.current) close();
+      if (e.key === 'ArrowUp' && !openedRef.current) open();
+    }
+
+    document.addEventListener('keydown', onKeyDown, true);
+    return () => document.removeEventListener('keydown', onKeyDown, true)
+  }, [])
+
   const open = () => {
     setOpened(true);
-    if (docRef.current) docRef.current.classList.replace('doc-slide-down', 'doc-slide-up')
+    if (docRef.current) {
+      docRef.current.classList.replace('doc-slide-down', 'doc-slide-up');
+      docRef.current.focus();
+    }
   }
 
   const close = () => {

@@ -24,7 +24,19 @@ const Diagram: FC = () => {
     if (docValue) drawDiagram();
   }, [docValue])
 
-  if (error) return <p className="select-none">Oops! An error ocurred, {error}</p>
+  if (error) {
+    return (
+      <p className={classnames(
+        'select-none',
+        'bg-red-200 text-red-950 font-semibold',
+        'max-w-[25%] text-center ',
+        'px-4 py-2',
+        'rounded-md'
+      )}>
+        🙅 {error}
+      </p>
+    )
+  }
   return (
     <>
       <div

@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import DiffMatchApply from 'diff-match-patch';
+import toast from 'react-hot-toast';
+import getSocketUrl from '../utils/getSocketUrl';
 
 export interface IDocStore {
   socket: WebSocket | null;
@@ -27,14 +29,16 @@ const useDoc = create<IDocStore>((set, get) => ({
   connect: (session = null) => {
     const username = sessionStorage.getItem('username') || crypto.randomUUID();
     const docId = session || crypto.randomUUID();
-    const socket = new WebSocket(`wss://uml-collab-server.zeabur.app/doc/?username=${username}&doc=${docId}`);
+    const socket = new WebSocket(getSocketUrl(username, docId));
 
-    socket.addEventListener('error', () => console.error('hubo un erro con el websocket'))
+    socket.addEventListener('error', () => {
+      toast.error('We couldnt connect this doc, try again later');
+    })
     socket.addEventListener("message", (event) => {
       try {
         const msg = JSON.parse(event.data)
         if (msg.id <= get().messageCount) return;
-        console.log('msg', msg);
+        // console.log('msg', msg);
 
         switch (msg.type) {
           case 'new': {
@@ -58,7 +62,7 @@ const useDoc = create<IDocStore>((set, get) => ({
             break;
           }
           case 'close': {
-            console.log(msg.msg);
+            // console.log(msg.msg);
             if (msg.sender === get().username) break;
             const currUsernames = get().usernames;
             currUsernames.delete(msg.sender)
