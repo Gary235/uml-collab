@@ -119,7 +119,6 @@ const Doc: FC = () => {
           autoCapitalize="off"
           placeholder="Start your diagram..."
           className={classnames(
-            'border-2 border-white',
             'bg-transparent',
             'outline-none',
             'resize-none',
