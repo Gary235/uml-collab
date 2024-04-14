@@ -1,7 +1,7 @@
 import { type ServerWebSocket } from "bun";
 
-let messageCount = 0;
 const messageCountPerDoc: Record<string, number> = {}
+const port = process.env.PORT || 5432
 
 interface IData {
   username: string;
@@ -14,7 +14,7 @@ const getMessageId = (doc: string) => {
 }
 
 const server = Bun.serve({
-  port: 3002,
+  port,
   async fetch(req, server) {
     const url = new URL(req.url);
 
