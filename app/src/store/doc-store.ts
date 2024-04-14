@@ -8,10 +8,12 @@ export interface IDocStore {
   docValue: string;
   username: string | null;
   docId: string | null;
+  docType: string;
   messageCount: number;
   usernames: Set<string>;
   getUserCount: () => number;
   setDocValue: (newVal: string) => void;
+  setDocType: (newVal: string) => void;
   connect: (session: string | null) => string;
   disconnect: () => void;
   send: (prev: string, curr: string) => void;
@@ -20,12 +22,25 @@ export interface IDocStore {
 const useDoc = create<IDocStore>((set, get) => ({
   socket: null,
   docValue: '',
+  docType: 'classDiagram',
   username: null,
   docId: null,
   usernames: new Set<string>(),
   messageCount: 0, // TODO: find the reason why messages are being duplicated so to aovid doing this
   getUserCount: () => get().usernames.size,
   setDocValue: (newVal: string) => set({docValue: newVal}),
+  setDocType: (newType: string) => {
+    set({docType: newType});
+    const {socket, username} = get();
+    if (socket) {
+      const newTypeMsg = {
+        sender: username,
+        msg: newType,
+        type: 'newType'
+      }
+      socket?.send(JSON.stringify(newTypeMsg))
+    }
+  },
   connect: (session = null) => {
     const username = sessionStorage.getItem('username') || crypto.randomUUID();
     const docId = session || crypto.randomUUID();
@@ -38,8 +53,6 @@ const useDoc = create<IDocStore>((set, get) => ({
       try {
         const msg = JSON.parse(event.data)
         if (msg.id <= get().messageCount) return;
-        // console.log('msg', msg);
-
         switch (msg.type) {
           case 'new': {
             set((state) => ({ usernames: new Set([...state.usernames, msg.sender]) }))
@@ -48,7 +61,8 @@ const useDoc = create<IDocStore>((set, get) => ({
               type: 'lastMessage',
               msg: get().docValue,
               receiver: msg.sender,
-              usernames: [...get().usernames]
+              usernames: [...get().usernames],
+              docType: get().docType
             }
             get().socket?.send(JSON.stringify(msgValue))
             break;
@@ -62,17 +76,27 @@ const useDoc = create<IDocStore>((set, get) => ({
             break;
           }
           case 'close': {
-            // console.log(msg.msg);
             if (msg.sender === get().username) break;
             const currUsernames = get().usernames;
             currUsernames.delete(msg.sender)
             set(({ usernames: currUsernames }))
             break;
           }
-          case 'history':
+          case 'history': {
             if (msg.receiver !== get().username) break;
-            set(({ docValue: msg.msg, usernames: new Set([...msg.usernames]) }))
+            set(({
+              docValue: msg.msg,
+              docType: msg.docType,
+              usernames: new Set([...msg.usernames])
+            }))
             break
+          }
+          case 'newType': {
+            if (msg.sender === get().username) break;
+            if (msg.msg === get().docType) break;
+            set(({ docType: msg.msg }))
+            break;
+          }
           default:
             break
         }

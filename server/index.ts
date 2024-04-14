@@ -44,11 +44,12 @@ const server = Bun.serve({
       const parsedMessage = JSON.parse(message);
       if (parsedMessage?.type === 'lastMessage') {
         const msgToNewSubscriber = {
-          receiver: parsedMessage.receiver,
-          msg: parsedMessage.msg,
           type: 'history',
           id: getMessageId(doc),
-          usernames: parsedMessage.usernames
+          receiver: parsedMessage.receiver,
+          msg: parsedMessage.msg,
+          usernames: parsedMessage.usernames,
+          docType: parsedMessage.docType
         }
         server.publish(doc, JSON.stringify(msgToNewSubscriber));
         return;

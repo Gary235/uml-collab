@@ -5,6 +5,8 @@ import classnames from "../utils/classnames";
 
 import SlideDownButton from "./buttons/SlideDownButton";
 import SlideUpButton from "./buttons/SlideUpButton";
+import DocType from "./DocType";
+import { DOC_TYPES } from "../constants/doc-types";
 
 
 const Doc: FC = () => {
@@ -17,8 +19,9 @@ const Doc: FC = () => {
     openedRef.current = newVal;
   }
 
-  const {docValue, setDocValue, send} =
-    useDoc(({docValue, setDocValue, send}) => ({docValue, setDocValue, send}));
+  const {docType, setDocType, docValue, setDocValue, send} =
+    useDoc(({docType, setDocType, docValue, setDocValue, send}) =>
+      ({docType, setDocType, docValue, setDocValue, send}));
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -26,8 +29,31 @@ const Doc: FC = () => {
       if (e.key === 'ArrowUp' && !openedRef.current) open();
     }
 
+    // @ts-expect-error this will not break
+    function onDocKeyDown(e) {
+      if (e.key === 'Tab' && openedRef.current) {
+        e.preventDefault();
+        const val = e.target.value;
+        const start = e.target.selectionStart;
+        const end = e.target.selectionEnd;
+        onInput(val.substring(0, start) + "\t" + val.substring(end));
+      }
+
+      if (e.key === '{' && openedRef.current) {
+        e.preventDefault();
+        const start = e.target.selectionStart;
+        const end = e.target.selectionEnd;
+        const val = e.target.value;
+        onInput(val.substring(0, start) + "{}" + val.substring(end));
+      }
+    }
+
     document.addEventListener('keydown', onKeyDown, true);
-    return () => document.removeEventListener('keydown', onKeyDown, true)
+    document.querySelector('#doc-text')?.addEventListener('keydown', onDocKeyDown, true)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown, true)
+      document.querySelector('#doc-text')?.removeEventListener('keydown', onDocKeyDown, true)
+    }
   }, [])
 
   const open = () => {
@@ -43,10 +69,8 @@ const Doc: FC = () => {
     if (docRef.current) docRef.current.classList.replace('doc-slide-up', 'doc-slide-down')
   }
 
-  // @ts-expect-error this will not break
-  const onInput = (e) => {
+  const onInput = (curr: string) => {
     const prev = docValue;
-    const curr = e.target.value;
 
     send(prev, curr)
     setDocValue(curr)
@@ -70,20 +94,35 @@ const Doc: FC = () => {
         <div className={classnames('w-full h-[5%]', 'flex items-center justify-between')}>
           {opened ? <SlideDownButton onClick={close} />: <SlideUpButton onClick={open} />}
         </div>
+        <div className={classnames(
+          'w-full h-[6%] min-h-10 overflow-hidden py-1',
+          'flex gap-2'
+        )}>
+          {Object.entries(DOC_TYPES).map(([type, label]) => (
+            <DocType
+              onClick={() => setDocType(type)}
+              label={label}
+              key={type}
+              isActive={type === docType}
+            />
+          ))}
+        </div>
         <textarea
           name='doc-text'
           id='doc-text'
-          onInput={onInput}
+          autoFocus
+          onInput={(e) => onInput(e.target.value)}
           value={docValue}
           autoCorrect='off'
           spellCheck='false'
           autoCapitalize="off"
           placeholder="Start your diagram..."
           className={classnames(
+            'border-2 border-white',
             'bg-transparent',
             'outline-none',
             'resize-none',
-            'w-full h-[95%]',
+            'w-full h-[89%]',
             'text-[#fff2ee]',
             'placeholder:text-[#c9aba2]',
           )}

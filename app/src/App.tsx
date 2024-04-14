@@ -18,11 +18,14 @@ const App = () => {
     const session = params.get('s') || null;
 
     if (session) connect(session);
-    // return () => disconnect();
   }, []);
 
+
   return (
-    <main className={classnames('w-[150vw] h-[150vh]', 'flex justify-center items-center', 'bg-[#fff2ee]', 'relative')}>
+    <main
+      id="app"
+      className={classnames('w-[150vw] h-[150vh]', 'flex justify-center items-center', 'bg-[#fff2ee]', 'relative')}
+    >
       <Nav />
       <Diagram />
       <Doc />

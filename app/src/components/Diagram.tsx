@@ -7,13 +7,16 @@ import useDoc from "../store/doc-store";
 const Diagram: FC = () => {
   const [error, setError] = useState('');
   const [diagram, setDiagram] = useState('');
-  const docValue = useDoc(({docValue}) => docValue);
+  const {docValue, docType} = useDoc(({docValue, docType}) => ({docValue, docType}));
 
   useEffect(() => {
     const drawDiagram = async () => {
       if (error) setError('');
       try {
-        const {svg} = await mermaid.render('graphDiv', docValue);
+        const {svg} = await mermaid.render(
+          'graphDiv',
+          docType + '\n' + docValue
+        );
         setDiagram(svg);
       } catch (error) {
         // @ts-expect-error this will not break
@@ -22,7 +25,7 @@ const Diagram: FC = () => {
     };
 
     if (docValue) drawDiagram();
-  }, [docValue])
+  }, [docValue, docType])
 
   if (error) {
     return (

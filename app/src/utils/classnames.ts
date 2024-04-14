@@ -6,7 +6,7 @@
 //   const validClassNames = [...confirmedClassNames];
 // }
 
-type classNames = string[]
+type classNames = Array<string | boolean>
 export default function(...classNames: classNames) {
   return classNames.filter(Boolean).join(' ')
 }
