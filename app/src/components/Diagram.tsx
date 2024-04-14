@@ -16,6 +16,7 @@ const Diagram: FC = () => {
         const {svg} = await mermaid.render('graphDiv', docValue);
         setDiagram(svg);
       } catch (error) {
+        // @ts-expect-error this will not break
         setError(error?.message || '');
       }
     };

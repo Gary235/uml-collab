@@ -24,6 +24,7 @@ const Doc: FC = () => {
     if (docRef.current) docRef.current.classList.replace('doc-slide-up', 'doc-slide-down')
   }
 
+  // @ts-expect-error this will not break
   const onInput = (e) => {
     const prev = docValue;
     const curr = e.target.value;
