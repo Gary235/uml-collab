@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+svg[aria-roledescription="error"] {
+  display: none;
+}
+
+main::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  inset: 0;
+  background: url(./assets/dot.svg) repeat;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#doc-text::-webkit-scrollbar {
+  width: 5px;
+}
+
+#doc-text::-webkit-scrollbar-thumb {
+  background: #ffffff47;
+  border-radius: 5px;
+}
+
+#doc-text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.doc-slide-down {
+  animation: docSlideDown 200ms ease-out forwards;
+}
+
+.doc-slide-up {
+  animation: docSlideUp 150ms ease-out forwards;
+}
+
+@keyframes docSlideDown {
+  from { top: 10%; }
+  to { top: 90%; }
+}
+
+@keyframes docSlideUp {
+  from { top: 90%; }
+  to { top: 10%; }
+}
