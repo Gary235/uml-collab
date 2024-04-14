@@ -111,6 +111,7 @@ const Doc: FC = () => {
           name='doc-text'
           id='doc-text'
           autoFocus
+          // @ts-expect-error this will not break
           onInput={(e) => onInput(e.target.value)}
           value={docValue}
           autoCorrect='off'
