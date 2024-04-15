@@ -94,9 +94,10 @@ const Doc: FC = () => {
         <div className={classnames('w-full h-[5%]', 'flex items-center justify-between')}>
           {opened ? <SlideDownButton onClick={close} />: <SlideUpButton onClick={open} />}
         </div>
-        <div className={classnames(
-          'w-full h-[6%] min-h-10 overflow-hidden py-1',
-          'flex gap-2'
+        <div id="doc-types" className={classnames(
+          'w-full h-[6%] min-h-12 overflow-hidden py-1',
+          'flex gap-2',
+          'overflow-x-scroll'
         )}>
           {Object.entries(DOC_TYPES).map(([type, label]) => (
             <DocType

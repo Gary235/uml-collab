@@ -30,6 +30,20 @@ main::before {
   background: transparent;
 }
 
+#doc-types::-webkit-scrollbar {
+  height: 5px;
+}
+
+#doc-types::-webkit-scrollbar-thumb {
+  background: #ffffff47;
+  border-radius: 5px;
+}
+
+#doc-types::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
 .doc-slide-down {
   animation: docSlideDown 200ms ease-out forwards;
 }
