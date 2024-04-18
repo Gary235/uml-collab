@@ -6,7 +6,7 @@ export default function(monaco: Monaco) {
 
   for (const lang of languages) {
     monaco.languages.register({id: lang,});
-    console.log({lang, keys: LANGUAGES_KEYWORDS[lang], tokens: LANGUAGES_TOKENIZERS[lang], labels: KEYWORDS_LABELS[lang]});
+    // console.log({lang, keys: LANGUAGES_KEYWORDS[lang], tokens: LANGUAGES_TOKENIZERS[lang], labels: KEYWORDS_LABELS[lang]});
 
     const keywordsRule = [
       ...LANGUAGES_KEYWORDS[lang]?.suggested ?? [],

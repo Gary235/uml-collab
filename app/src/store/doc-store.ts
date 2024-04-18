@@ -135,7 +135,7 @@ const useDoc = create<IDocStore>((set, get) => ({
       messageCount: 0
     }));
     sessionStorage.clear();
-    console.log('desconecto');
+    // console.log('desconecto');
   }
 }));
 

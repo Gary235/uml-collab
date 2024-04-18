@@ -11,6 +11,7 @@ app/node_modules
 app/dist
 app/dist-ssr
 app/*.local
+app/.env
 
 # Editor directories and files
 app/.vscode/*
@@ -24,10 +25,10 @@ app/*.sln
 app/*.sw?
 
 # -----------------------------------------------
+server/.env
+
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
-
 # Logs
-
 server/logs
 server/_.log
 server/npm-debug.log_
