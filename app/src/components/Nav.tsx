@@ -36,7 +36,7 @@ const Nav: FC = () => {
       'flex items-center justify-between',
       'transition-all'
     )}>
-      UMLCollab
+      <h1>UMLCollab</h1>
       {!!docId && <Avatars usernames={usernames} />}
       <button
         onClick={docId ? onDisconnect : onConnect}

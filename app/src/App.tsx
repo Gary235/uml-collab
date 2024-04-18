@@ -24,7 +24,12 @@ const App = () => {
   return (
     <main
       id="app"
-      className={classnames('w-[150vw] h-[150vh]', 'flex justify-center items-center', 'bg-[#fff2ee]', 'relative')}
+      className={classnames(
+        'w-screen h-screen',
+        'flex justify-center items-center',
+        'bg-[#fff2ee]',
+        'relative'
+      )}
     >
       <Nav />
       <Diagram />

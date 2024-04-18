@@ -79,3 +79,23 @@ export const LANGUAGES_TOKENIZERS: Record<string, Array<a>> = {
     [/\(\(\(.*\)\)\)/, "flowchartnode"],
   ],
 }
+
+const LANGUAGES_DOCS_ENDPOINTS = {
+  [LANGUAGES.FLOWCHART]: 'flowchart',
+  [LANGUAGES.SEQUENCE_DIAGRAM]: 'sequenceDiagram',
+  [LANGUAGES.CLASS_DIAGRAM]: 'classDiagram',
+  [LANGUAGES.STATE_DIAGRAM]: 'stateDiagram',
+  [LANGUAGES.ER_DIAGRAM]: 'entityRelationshipDiagram',
+  [LANGUAGES.JOURNEY]: 'userJourney',
+  [LANGUAGES.GANTT]: 'gantt',
+  [LANGUAGES.PIE]: 'pie',
+  [LANGUAGES.QUADRANT_CHART]: 'quadrantChart',
+  [LANGUAGES.REQUIREMENT_DIAGRAM]: 'requirementDiagram',
+  [LANGUAGES.GIT_GRAPH]: 'gitgraph',
+  [LANGUAGES.MIND_MAP]: 'mindmap',
+  [LANGUAGES.TIMELINE]: 'timeline',
+  [LANGUAGES.ZEN_UML]: 'zenuml',
+}
+
+export const getLanguageDocURL = (language: string) =>
+  `https://mermaid.js.org/syntax/${LANGUAGES_DOCS_ENDPOINTS[language]}.html`

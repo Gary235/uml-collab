@@ -21,7 +21,7 @@ const DocEditor: FC<IProps> = ({onChange, value, language}) => {
 
   return (
     <Editor
-      height="100%"
+      height="60vh"
       width="100%"
       defaultLanguage={language}
       defaultValue={language}
