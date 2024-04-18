@@ -7,6 +7,7 @@ import SlideDownButton from "./buttons/SlideDownButton";
 import SlideUpButton from "./buttons/SlideUpButton";
 import DocType from "./DocType";
 import { DOC_TYPES } from "../constants/doc-types";
+import DocEditor from "./DocEditor";
 
 
 const Doc: FC = () => {
@@ -96,7 +97,7 @@ const Doc: FC = () => {
         </div>
         <div id="doc-types" className={classnames(
           'w-full h-[6%] min-h-12 overflow-hidden py-1',
-          'flex gap-2',
+          'flex gap-4',
           'overflow-x-scroll'
         )}>
           {Object.entries(DOC_TYPES).map(([type, label]) => (
@@ -108,26 +109,7 @@ const Doc: FC = () => {
             />
           ))}
         </div>
-        <textarea
-          name='doc-text'
-          id='doc-text'
-          autoFocus
-          // @ts-expect-error this will not break
-          onInput={(e) => onInput(e.target.value)}
-          value={docValue}
-          autoCorrect='off'
-          spellCheck='false'
-          autoCapitalize="off"
-          placeholder="Start your diagram..."
-          className={classnames(
-            'bg-transparent',
-            'outline-none',
-            'resize-none',
-            'w-full h-[89%]',
-            'text-[#fff2ee]',
-            'placeholder:text-[#c9aba2]',
-          )}
-        ></textarea>
+        <DocEditor onChange={onInput} value={docValue} language={docType} />
       </div>
     </>
   );

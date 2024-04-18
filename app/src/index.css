@@ -61,3 +61,13 @@ main::before {
   from { top: 90%; }
   to { top: 10%; }
 }
+
+@font-face {
+  font-family: 'CascadiaCode';
+  src: url('./assets/cascadia-code/CascadiaCode_VTT.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CascadiaCodeItalic';
+  src: url('./assets/cascadia-code/CascadiaCodeItalic_VTT.ttf') format('truetype');
+}

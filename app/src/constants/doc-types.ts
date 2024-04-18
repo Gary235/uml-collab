@@ -1,5 +1,5 @@
 export const DOC_TYPES: Record<string, string> = {
-  'flowchart LR': 'Flowchart', // puede ser TD
+  'flowchart': 'Flowchart', // puede ser TD
   'sequenceDiagram': 'Sequence Diagram',
   'classDiagram': 'Class Diagram',
   'stateDiagram-v2': 'State Diagram',

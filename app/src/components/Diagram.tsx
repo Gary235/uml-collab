@@ -13,10 +13,7 @@ const Diagram: FC = () => {
     const drawDiagram = async () => {
       if (error) setError('');
       try {
-        const {svg} = await mermaid.render(
-          'graphDiv',
-          docType + '\n' + docValue
-        );
+        const {svg} = await mermaid.render('graphDiv', docValue);
         setDiagram(svg);
       } catch (error) {
         // @ts-expect-error this will not break
