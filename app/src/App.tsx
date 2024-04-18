@@ -20,7 +20,6 @@ const App = () => {
     if (session) connect(session);
   }, []);
 
-
   return (
     <main
       id="app"
