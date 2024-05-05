@@ -34,6 +34,7 @@ const Nav: FC = () => {
       'flex items-center justify-between gap-2',
       'transition-all',
       'z-10',
+      'cursor-default',
       'fixed left-[calc(50% - 105px)] top-2',
       'w-[210px] h-15',
       'md:w-[50%] md:left-[25%]',

@@ -24,7 +24,8 @@ const Diagram: FC = () => {
       }
     };
 
-    if (docValue) drawDiagram();
+    // if (docValue) drawDiagram();
+    drawDiagram();
 
     setTimeout(() => {
       const graph: SVGElement | null = document.querySelector('#graphDiv');
@@ -53,18 +54,20 @@ const Diagram: FC = () => {
 
   if (error) {
     return (
-      <p
-        id="diagram-error"
-        className={classnames(
-          'select-none',
-          'bg-red-200 text-red-950 font-semibold',
-          'max-w-[25%] text-center ',
-          'px-4 py-2',
-          'rounded-md'
-        )}
-      >
-        🙅 {error}
-      </p>
+      <div className={classnames('w-screen h-screen flex items-center justify-center')}>
+        <p
+          id="diagram-error"
+          className={classnames(
+            'select-none',
+            'bg-red-200 text-red-950 font-semibold',
+            'max-w-[50%] text-center',
+            'px-4 py-2',
+            'rounded-md'
+          )}
+        >
+          🙅 {error}
+        </p>
+      </div>
     )
   }
 

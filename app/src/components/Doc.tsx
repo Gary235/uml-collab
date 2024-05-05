@@ -88,6 +88,7 @@ const Doc: FC = () => {
         'rounded-[6px]',
         'shadow-[0_35px_60px_-15px_rgba(41,13,8,0.6)]',
         'p-3',
+        'cursor-default',
         'fixed left-[2.5%]',
         'doc-slide-up',
         'flex flex-col gap-3',
