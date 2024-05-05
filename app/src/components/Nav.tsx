@@ -28,13 +28,14 @@ const Nav: FC = () => {
       'font-mono',
       'bg-[rgba(41,13,8,0.6)] text-[#fff2ee]',
       'backdrop-blur-md',
-      'w-[50%] h-15',
       'rounded-[6px]',
       'shadow-lg',
       'p-3',
-      'fixed left-[25%] top-2',
-      'flex items-center justify-between',
-      'transition-all'
+      'flex items-center justify-between gap-2',
+      'transition-all',
+      'fixed left-[calc(50% - 105px)] top-2',
+      'w-[210px] h-15',
+      'md:w-[50%] md:left-[25%]',
     )}>
       <h1>UMLCollab</h1>
       {!!docId && <Avatars usernames={usernames} />}
