@@ -33,7 +33,7 @@ const Diagram: FC = () => {
         const {height, width} = graph.getBoundingClientRect();
         let newHeight = dimensions.h, newWidth = dimensions.w;
 
-        if (height > window.innerHeight - 100) {
+        if (height > window.innerHeight - 200) {
           newHeight = `${height * 1.5}px`
         } else if (height < window.innerHeight && dimensions.h !== '100vh') {
           newHeight = `100vh`
