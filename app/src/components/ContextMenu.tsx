@@ -45,13 +45,13 @@ const ContextMenu: FC<IProps> = ({reference, show, x, y, close}) => {
         'bg-white rounded-lg',
         'shadow-lg',
         'flex flex-col',
-        'fixed ',
+        'fixed',
         show ? visibleStyles : hiddenStyles
       )}
     >
       <button className={btnStyles} onClick={exportAsSvg}> Export as <strong>SVG</strong></button>
-      <button className={btnStyles + btnDisabled} disabled> Export as <strong>PNG</strong></button>
-      <button className={btnStyles + btnDisabled} disabled> Export as <strong>JPG</strong></button>
+      <button className={`${btnStyles} ${btnDisabled}`} disabled> Export as <strong>PNG</strong></button>
+      <button className={`${btnStyles} ${btnDisabled}`} disabled> Export as <strong>JPG</strong></button>
     </menu>
   )
 }
