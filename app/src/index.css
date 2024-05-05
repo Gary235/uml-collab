@@ -6,6 +6,10 @@ svg[aria-roledescription="error"] {
   display: none;
 }
 
+body {
+  background:  #fff2ee;
+}
+
 main::before {
   content: '';
   width: 100%;
@@ -42,7 +46,6 @@ main::before {
 #doc-types::-webkit-scrollbar-track {
   background: transparent;
 }
-
 
 .doc-slide-down {
   animation: docSlideDown 200ms ease-out forwards;
