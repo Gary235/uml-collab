@@ -47,6 +47,14 @@ main::before {
   background: transparent;
 }
 
+#graphDiv {
+  align-self: center;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
 .doc-slide-down {
   animation: docSlideDown 200ms ease-out forwards;
 }
